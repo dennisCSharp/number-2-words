@@ -1,0 +1,103 @@
+<!--
+Developed by: Muiruri Joseph
+Company: MOL Group, Bp, Hungary
+Position: Corporate IT Trainee
+Date: 7 Aug 2019
+--->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Number To Word | Js</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <style type="text/css">
+        body{
+            margin: 0;padding: 0;
+            background-image: url("hun-gp-19.jpg");
+            text-align: center;
+        }
+        .container{
+            margin: auto;
+            padding-top: 40vh;
+            width: 70%;
+        }
+        #word{
+            font-size: 40px;
+            font-style: italic;
+            font-weight: bold;
+            color: #FF0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="text" name="number" placeholder="Number OR Amount" onkeyup="word.innerHTML=numberToWord(this.value)" />
+        <div id="word"></div>
+    </div>
+    <script type="text/javascript">
+function numberToWord(n){
+
+    if(isNaN(n) || n>999999999999999){
+        return "Not a valid Range or Number"
+    }
+    var x = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
+    var y = ["","","twenty","thirty","fourty","fifty","sixty","seventy","eighty","ninety"];
+    
+    var trillion = Math.floor(n/10000000000000);
+    n=n-trillion*10000000000000;
+    var billion = Math.floor(n/1000000000);
+    n=n-billion*1000000000;
+    var million = Math.floor(n/1000000);
+    n=n-million*1000000;
+    var thousand = Math.floor(n/1000);
+    n=n-thousand*1000;
+    var hundred = Math.floor(n/100);
+    n=n-hundred*100;
+    var tens = Math.floor(n/10);
+    n=n-tens*10;
+    var ones = n;
+
+    var result="";
+
+    if(trillion){
+        result = result + numberToWord(trillion) +" trillion ";
+    }
+    if(billion){
+        result = result + numberToWord(billion) +" billion ";
+    }
+
+    if(million){
+        result = result + numberToWord(million) +" million ";
+    }
+    if(thousand){
+        result = result + numberToWord(thousand) +" thousand ";
+    }
+    if(hundred){
+        result = result + numberToWord(hundred) +" Hundred ";
+    }
+    if(tens && tens<2){
+        
+            result = result + x[tens*10+ones];
+    }
+    else
+    {   
+        
+        result = result + y[tens] ;
+        if(tens && ones){
+            result=result+"-"
+        }
+        if(ones)
+        result = result+""+ x[ones];
+    }
+    if(result.length<=1){
+        result="zero";
+    }
+
+ return result;
+
+}
+    </script>
+</body>
+</html>
